@@ -112,34 +112,55 @@
     font-size: 0.9em;
   }
 
-  /* Updated keyframes for a round trip flight */
-  @keyframes plane-flight {
-    0% {
-      left: 0%;
-      top: 170px;  /* near ground at takeoff */
-    }
-    25% {
-      left: 25%;
-      top: 60px;   /* climb to cruise */
-    }
-    50% {
-      left: 50%;
-      top: 60px;   /* cruising at midpoint */
-    }
-    75% {
-      left: 25%;
-      top: 60px;   /* returning at cruise altitude */
-    }
-    100% {
-      left: 0%;
-      top: 170px;  /* back at origin, near ground - completing a round trip */
-    }
+/* Updated keyframes for a full round trip flight using given landmarks */
+@keyframes plane-flight {
+  0% {
+    left: 0%;
+    top: 170px;  /* near ground at takeoff (left side) */
   }
+  10% {
+    left: 10%;
+    top: 60px;    /* climbed to cruise altitude */
+  }
+  40% {
+    left: 75%;
+    top: 60px;    /* climbed to cruise altitude */
+  }
+  50% {
+    left: 85%;
+    top: 170px;   /* landed on the right side */
+  }
+  60% {
+    left: 85%;
+    top: 170px;   /* landed on the right side */
+  }
+  70% {
+    left: 75%;
+    top: 60px;   /* landed on the right side */
+  }
+  75% {
+    left: 65%;
+    top: 60px;    /* returning at cruise altitude */
+  }
+  85% {
+    left: 30%;
+    top: 60px;    /* returning at cruise altitude */
+  }
+  90% {
+    left: 10%;
+    top: 60px;    /* returning at cruise altitude */
+  }
+  100% {
+    left: 0%;
+    top: 170px;   /* back at origin, landed again */
+  }
+}
+
 
   .plane {
     position: absolute;
     white-space: nowrap;
-    animation: plane-flight 10s linear infinite;
+    animation: plane-flight 20s linear infinite;
   }
 
   /* Existing animations for modular approach remain unchanged */
@@ -154,14 +175,14 @@
       top: 60px;
       opacity: 1;
     }
-    30% {
+    20% {
       left: 5%;
-      top: 100px;
+      top: 170px;
       opacity: 1;
     }
     50% {
       left: 0%;
-      top: 150x;
+      top: 170px;
       opacity: 1; 
     }
     60% {
@@ -327,6 +348,7 @@
       <h3>Traditional Aircraft</h3>
       <p>One aircraft does everything: takeoff, cruise, landing. Heavy gear and engines always come along for the ride.</p>
       <div class="compare-diagram">
+        <div id="flightCount">Flights completed: 0</div>
         <span class="plane"> ---o-(_)-o--- </span>
         <div class="ground-line">
           <div class="labels">
@@ -347,7 +369,7 @@
       <p>Separate launch and recovery drones handle takeoff and landing, allowing a lighter passenger hull to cruise efficiently.</p>
       <div class="compare-diagram">
         <span class="launch-drone">[Launch Drone]</span>
-        <span class="hull">[Passenger Hull]</span>
+        <span class="hull">[In Flight Hull]</span>
         <span class="recovery-drone">[Recovery Drone]</span>
         <div class="ground-line">
           <div class="labels">
@@ -401,10 +423,32 @@ document.addEventListener('DOMContentLoaded', function() {
   var flightCountEl = document.getElementById('flightCount');
   var flightCount = 0;
 
-  // Each animation iteration represents a complete round-trip flight
+  // Match this to your plane's animation duration in CSS.
+  // For example, if the animation is `animation: plane-flight 20s linear infinite;`
+  var animationDuration = 20; // in seconds
+  var halfCycleTime = (animationDuration / 2) * 1000; // half of the cycle in milliseconds
+
+  // Function to schedule a halfway increment
+  function scheduleHalfwayIncrement() {
+    return setTimeout(function() {
+      // Increment at 50% landing
+      flightCount++;
+      flightCountEl.textContent = 'Flights completed: ' + flightCount;
+    }, halfCycleTime);
+  }
+
+  // Set the initial halfway increment
+  var halfwayTimeout = scheduleHalfwayIncrement();
+
+  // Listen for the animation iteration event (end of full round trip)
   plane.addEventListener('animationiteration', function() {
+    // Increment at 100% landing
     flightCount++;
     flightCountEl.textContent = 'Flights completed: ' + flightCount;
+
+    // Clear previous halfway timer and schedule a new one for the next cycle
+    clearTimeout(halfwayTimeout);
+    halfwayTimeout = scheduleHalfwayIncrement();
   });
 });
 </script>
