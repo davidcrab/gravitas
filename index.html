@@ -36,7 +36,6 @@
     margin: 20px auto;
   }
 
-  /* Hero section with company vision */
   .hero {
     text-align: center;
     margin-bottom: 40px;
@@ -49,7 +48,6 @@
     font-size: 1.5em;
   }
 
-  /* Comparison section */
   .comparison-section {
     margin: 40px 0;
     text-align: center;
@@ -81,69 +79,173 @@
     font-size: 14px;
     line-height: 1.3;
     position: relative;
-    overflow: hidden;
-  }
-
-  /* ASCII diagram styles */
-  .diagram {
-    font-family: monospace;
-    text-align: center;
-    background: #fff;
+    width: 100%;
+    height: 250px; 
     border: 2px dashed #000;
-    padding: 10px;
-    white-space: pre;
-    overflow-x: auto;
+    box-sizing: border-box;
+    background: #fff;
+    overflow: hidden;
     position: relative;
   }
 
-  /* Flight path line */
-  .flight-line {
+  .ground-line {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: monospace;
     color: #000;
   }
 
-  /* Animations */
-  @keyframes move-plane {
-    0% { left: 0%; }
-    100% { left: 80%; }
+  .ground-line:before {
+    content: "";
+    display: block;
+    border-top: 2px solid #000;
+    margin-bottom: 5px;
   }
 
-  @keyframes move-hull {
-    0% { left: 0%; }
-    40% { left: 30%; }  
-    60% { left: 50%; }  
-    100% { left: 80%; }
+  .labels {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    font-size: 0.9em;
   }
 
-  /* Plane for traditional approach */
+  /* Updated keyframes for a round trip flight */
+  @keyframes plane-flight {
+    0% {
+      left: 0%;
+      top: 170px;  /* near ground at takeoff */
+    }
+    25% {
+      left: 25%;
+      top: 60px;   /* climb to cruise */
+    }
+    50% {
+      left: 50%;
+      top: 60px;   /* cruising at midpoint */
+    }
+    75% {
+      left: 25%;
+      top: 60px;   /* returning at cruise altitude */
+    }
+    100% {
+      left: 0%;
+      top: 170px;  /* back at origin, near ground - completing a round trip */
+    }
+  }
+
   .plane {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     white-space: nowrap;
-    animation: move-plane 10s linear infinite;
+    animation: plane-flight 10s linear infinite;
   }
 
-  /* Modular approach elements */
+  /* Existing animations for modular approach remain unchanged */
+  @keyframes launch-drone-flight {
+    0% {
+      left: 0%;
+      top: 170px;
+      opacity: 1;
+    }
+    5% {
+      left: 5%;
+      top: 60px;
+      opacity: 1;
+    }
+    30% {
+      left: 5%;
+      top: 100px;
+      opacity: 1;
+    }
+    50% {
+      left: 0%;
+      top: 150x;
+      opacity: 1; 
+    }
+    60% {
+      opacity: 1;
+      top: 170px;
+      left: 0%;
+    }
+    100% {
+      opacity: 1;
+      top: 170px;
+      left: 0%;
+    }
+  }
+
+  @keyframes hull-flight {
+    0% {
+      left: 0%;
+      top: 170px; 
+    }
+    5% {
+      left: 5%;
+      top: 50px; 
+    }
+    50% {
+      left: 50%;
+      top: 60px; 
+    }
+    60% {
+      left: 60%;
+      top: 60px; 
+    }
+    80% {
+      left: 75%;
+      top: 120px; 
+    }
+    100% {
+      left: 85%;
+      top: 200px; 
+    }
+  }
+
+  @keyframes recovery-drone-flight {
+    0% {
+      left: 85%;
+      top: 200px;
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    60% {
+      left: 60%;
+      top: 60px;
+      opacity: 1;
+    }
+    80% {
+      left: 75%;
+      top: 120px; 
+      opacity: 1;
+    }
+    100% {
+      left: 85%;
+      top: 200px; 
+      opacity: 1;
+    }
+  }
+
   .launch-drone, .recovery-drone, .hull {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     white-space: nowrap;
   }
 
   .launch-drone {
-    left: 0%;
+    animation: launch-drone-flight 10s linear infinite;
   }
 
   .hull {
-    animation: move-hull 10s linear infinite;
+    animation: hull-flight 10s linear infinite;
   }
 
   .recovery-drone {
-    left: 82%;
+    animation: recovery-drone-flight 10s linear infinite;
   }
 
-  /* Explanation Section */
   .explanation {
     margin: 40px 0;
     text-align: center;
@@ -153,7 +255,6 @@
     margin-bottom: 20px;
   }
 
-  /* Simple Stats or Credibility Section */
   .stats {
     text-align: center;
     margin: 40px 0;
@@ -194,6 +295,14 @@
       width: 100%;
     }
   }
+
+  /* Style for flight counter */
+  #flightCount {
+    text-align: center;
+    font-size: 1em;
+    margin-top: 10px;
+    font-weight: bold;
+  }
 </style>
 </head>
 <body>
@@ -206,53 +315,55 @@
 
   <div class="hero">
     <h2>We’re revolutionizing air travel by separating takeoff, landing, and cruising into specialized, reusable modules.</h2>
-    <p>Instead of each aircraft carrying heavy engines and landing gear that sit idle between flights, our dedicated launch and recovery drones operate continuously, serving multiple hulls throughout the day. This drastically reduces capital costs and spreads them across far more flights, driving down ticket prices.</p>
+    <p>In traditional aviation, each aircraft carries heavy engines and landing gear through every phase of the flight, even though they're only critical for takeoff and landing. We break that cycle. Our dedicated launch and recovery drones operate continuously, serving multiple passenger hulls throughout the day. This cuts down on idle equipment, spreads capital costs across more flights, and ultimately makes travel more affordable.</p>
   </div>
 
   <div class="comparison-section">
-    <h2>Compare: Traditional vs. Modular Flight Operations</h2>
-    <p>Each example shows a horizontal flight path and how equipment moves or stays separate.</p>
+    <h2>Compare: Traditional vs. Our Modular Approach</h2>
+    <p>These diagrams show altitude changes and flight phases. The baseline represents the ground, with takeoff on the left and landing on the right. Notice that aircraft and modules never go below ground level.</p>
     
     <!-- Traditional Approach -->
     <div class="compare-card">
       <h3>Traditional Aircraft</h3>
-      <p>A single plane carries engines, landing gear, and passengers all at once through takeoff, cruise, and landing.</p>
+      <p>One aircraft does everything: takeoff, cruise, landing. Heavy gear and engines always come along for the ride.</p>
       <div class="compare-diagram">
-        <div class="diagram">
-Takeoff  --------------------------------  Cruise  --------------------------------  Landing
-<br>
-<span class="flight-line">---------------------------------------------------------------------------------------------------</span>
-        </div>
         <span class="plane"> ---o-(_)-o--- </span>
+        <div class="ground-line">
+          <div class="labels">
+            <span>Origin</span>
+            <span>Cruise</span>
+            <span>Return</span>
+          </div>
+        </div>
       </div>
-      <p>All phases are handled by one heavy, integrated aircraft, making each flight more costly.</p>
+      <p>This traditional model ties up resources and inflates costs, as each plane is a full package of heavy, underutilized components.</p>
+      
+      <div id="flightCount">Flights completed: 0</div>
     </div>
 
     <!-- Modular Approach -->
     <div class="compare-card">
       <h3>Modular Approach</h3>
-      <p>Launch and recovery drones are separate from the passenger hull, which is lighter and simpler.</p>
+      <p>Separate launch and recovery drones handle takeoff and landing, allowing a lighter passenger hull to cruise efficiently.</p>
       <div class="compare-diagram">
-        <div class="diagram">
-Launch Drone   ------------------- Hull (Cruise Only) -------------------   Recovery Drone
-<br>
-<span class="flight-line">---------------------------------------------------------------------------------------------------</span>
-        </div>
-        <!-- Launch Drone at the start (stationary) -->
         <span class="launch-drone">[Launch Drone]</span>
-        <!-- Hull moves across -->
         <span class="hull">[Passenger Hull]</span>
-        <!-- Recovery Drone at the end (stationary) -->
         <span class="recovery-drone">[Recovery Drone]</span>
+        <div class="ground-line">
+          <div class="labels">
+            <span>Launch</span>
+            <span>Cruise</span>
+            <span>Recovery</span>
+          </div>
+        </div>
       </div>
-      <p>Specialized drones handle takeoff and landing continuously, while passenger hulls focus solely on cruising, lowering costs.</p>
+      <p>The hull is lifted and lowered by drones, minimizing waste and allowing continuous operation. Costs drop and efficiency soars.</p>
     </div>
   </div>
 
   <div class="explanation">
-    <h2>How This Benefits Everyone</h2>
-    <p>By decoupling the landing gear and heavy engines from the passenger hull, we create a production-line approach to air travel. The result is far lower capital costs, more efficient use of equipment, and the ability to quickly add passenger capacity without buying whole new planes.</p>
-    <p>This translates into lower fares, better utilization, and a more sustainable and scalable model for the future of aviation.</p>
+    <h2>Why This Matters</h2>
+    <p>By decoupling takeoff and landing from the passenger hull, airlines can scale capacity efficiently. The hulls become simpler and cheaper, while the reusable drones stay busy all day. This approach spreads costs over many more flights, reduces ticket prices, and makes air travel more accessible and sustainable for everyone.</p>
   </div>
 
   <div class="stats">
@@ -283,6 +394,20 @@ Launch Drone   ------------------- Hull (Cruise Only) -------------------   Reco
   <p>© Gravitas Transportation Systems</p>
   <p>Backed by leading innovators in logistics and transportation.</p>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var plane = document.querySelector('.plane');
+  var flightCountEl = document.getElementById('flightCount');
+  var flightCount = 0;
+
+  // Each animation iteration represents a complete round-trip flight
+  plane.addEventListener('animationiteration', function() {
+    flightCount++;
+    flightCountEl.textContent = 'Flights completed: ' + flightCount;
+  });
+});
+</script>
 
 </body>
 </html>
