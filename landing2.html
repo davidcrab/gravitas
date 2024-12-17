@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Airline Operations Overview</title>
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+
+  header {
+    background: #024; 
+    color: #fff; 
+    padding: 20px;
+    text-align: center;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+
+  h1, h2, h3 {
+    margin: 20px 0 10px;
+    font-weight: 600;
+  }
+
+  .hero {
+    background: #eee;
+    padding: 20px; 
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .stat-box {
+    flex: 1 1 200px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 5px;
+    min-width: 150px;
+  }
+
+  .map-section {
+    margin-top: 40px;
+    text-align: center;
+    position: relative; 
+  }
+
+  .map-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ccc url('https://via.placeholder.com/800x300?text=Map+JFK+to+LAX') no-repeat center center;
+    background-size: cover;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 5px;
+  }
+
+  /* The airplane */
+  .plane {
+    position: absolute;
+    top: 50%; 
+    left: 0; 
+    transform: translateY(-50%);
+    font-size: 2rem; /* Adjust size as needed */
+    animation: fly 5s linear infinite alternate;
+    /* The 'infinite alternate' means it goes forth and back,
+       remove 'alternate' if you just want it to start over from the left. */
+  }
+
+  /* Keyframes to move the plane from left to right */
+  @keyframes fly {
+    from { left: 0%; }
+    to { left: 90%; }
+  }
+
+  /* Optional: If you have a real plane image, you can replace the content:
+     .plane {
+       width: 50px;
+       height: auto;
+       background: url('plane_icon.png') no-repeat center/contain;
+       content: "";
+     }
+  */
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Airline Operations Overview</h1>
+  <p>Boeing 737 - Tail #N12345 | Route: JFK → LAX</p>
+</header>
+
+<div class="container">
+  <section class="hero">
+    <h2>Key Highlights</h2>
+    <div class="stats">
+      <div class="stat-box">
+        <h3>Total Flights</h3>
+        <p>1,230</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Revenue</h3>
+        <p>$8,200,000</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Costs</h3>
+        <p>$5,600,000</p>
+      </div>
+      <div class="stat-box">
+        <h3>Current Value</h3>
+        <p>$20,000,000</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <h2>Route Visualization</h2>
+    <div class="map-container">
+      <!-- 
+        Using an emoji ✈️ for simplicity. You can replace with an inline SVG, 
+        or an <img> tag of a plane. 
+      -->
+      <div class="plane">✈️</div>
+    </div>
+    <p>The plane is currently operating between JFK (on the left) and LAX (on the right).</p>
+  </section>
+
+  <!-- You can add other sections, cost breakdown, value over time charts, etc. -->
+</div>
+
+<footer>
+  <p>© 2024 Airline Operations Analytics</p>
+</footer>
+
+</body>
+</html>

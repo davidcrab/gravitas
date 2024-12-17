@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Airline Operations Overview</title>
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 0; 
+    padding: 0; 
+    color: #333;
+  }
+
+  header {
+    background: #024; 
+    color: #fff; 
+    padding: 20px;
+    text-align: center;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+  }
+
+  h1, h2, h3 {
+    margin: 20px 0 10px;
+    font-weight: 600;
+  }
+
+  .hero {
+    background: #eee;
+    padding: 20px; 
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .stat-box {
+    flex: 1 1 200px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 5px;
+  }
+
+  .map-section, .costs-section, .value-section {
+    margin-top: 40px;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 300px;
+    background: #ccc url('https://via.placeholder.com/800x300?text=Map+JFK+to+LAX') no-repeat center center;
+    background-size: cover;
+    border-radius: 5px;
+  }
+
+  .chart-placeholder {
+    width: 100%;
+    height: 200px;
+    background: #ddd url('https://via.placeholder.com/800x200?text=Chart') no-repeat center center;
+    background-size: cover;
+    border-radius: 5px;
+    margin: 20px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Airline Operations Overview</h1>
+  <p>Boeing 737 - Tail #N12345 | Route: JFK → LAX</p>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <h2>Key Highlights</h2>
+    <div class="stats">
+      <div class="stat-box">
+        <h3>Total Flights</h3>
+        <p>1,230</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Revenue</h3>
+        <p>$8,200,000</p>
+      </div>
+      <div class="stat-box">
+        <h3>Total Costs</h3>
+        <p>$5,600,000</p>
+      </div>
+      <div class="stat-box">
+        <h3>Current Value</h3>
+        <p>$20,000,000</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <h2>Route Visualization</h2>
+    <div class="map-placeholder"></div>
+    <p>This map shows the primary route the aircraft operates: JFK in New York to LAX in Los Angeles.</p>
+  </section>
+
+  <section class="costs-section">
+    <h2>Lifetime Costs Breakdown</h2>
+    <p>Below is a simple visualization of cumulative costs over the aircraft’s operational lifetime.</p>
+    <div class="chart-placeholder"></div>
+    <p>Costs include fuel, maintenance, crew salaries, and landing fees. Over time, the cumulative cost has grown, but revenue still outpaces total expenses, maintaining profitable operations.</p>
+  </section>
+
+  <section class="value-section">
+    <h2>Aircraft Value Over Time</h2>
+    <p>The chart below shows how the aircraft’s value has changed since its acquisition:</p>
+    <div class="chart-placeholder"></div>
+    <p>The airplane was purchased new at $45 million, and current market estimates place its value at approximately $20 million, reflecting depreciation over its 10-year service life.</p>
+  </section>
+
+  <section class="flights-data-section">
+    <h2>Recent Flights Data</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Flight #</th>
+          <th>Route</th>
+          <th>Revenue</th>
+          <th>Cost</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024-01-01</td>
+          <td>AA123</td>
+          <td>JFK-LAX</td>
+          <td>$30,000</td>
+          <td>$18,000</td>
+          <td>$12,000</td>
+        </tr>
+        <tr>
+          <td>2024-01-02</td>
+          <td>AA124</td>
+          <td>LAX-JFK</td>
+          <td>$28,000</td>
+          <td>$17,500</td>
+          <td>$10,500</td>
+        </tr>
+        <tr>
+          <td>2024-01-03</td>
+          <td>AA125</td>
+          <td>JFK-LAX</td>
+          <td>$29,500</td>
+          <td>$16,000</td>
+          <td>$13,500</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<footer>
+  <p>© 2024 Airline Operations Analytics</p>
+</footer>
+</body>
+</html>
